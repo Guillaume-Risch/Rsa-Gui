@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+
+* {
+    margin : 0;
+    padding : 0;
+
+    font-family: 'Noto Sans', sans-serif;
+
+    user-select: none;
+}
+
+textarea {
+    resize: none;
+}
+
+body {
+    width : 100vw;
+    max-height : 100vh;
+
+    overflow: hidden;
+}
+
+.popupText {
+    color : #fff;
+    font-size : 30px;
+
+    opacity: 0;
+
+    animation: fadeIn forwards 1s 0.6s;
+}
+
+#popupStart {
+    width  : 100vw;
+    height : 100vh;
+
+    z-index : 99;
+
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color : #78e08f;
+}
+
+.lockButton {
+    width : 320px;
+    border : none;
+    background: none;
+
+    cursor: pointer;
+    opacity : 0;
+
+    animation: fadeIn forwards 1s 0.2s;
+}
+.lockButton:focus {
+    outline : none;
+    opacity: 1;
+}
+.lockButton img {
+    filter: invert(1);
+}
+
+.big {
+    animation: zoomAnimation 1.5s forwards;
+    opacity: 1 !important;
+}
+
+.noDisplay {
+    display : none !important;
+}
+
+.lockButton > #imgLock1 {
+    display : initial;
+    opacity: 1;
+    transition: 0.5s;
+
+    color : #fff;
+}
+.lockButton > #imgLock2 {
+    display : none;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+
+.lockButton:hover > #imgLock1 {
+    display : initial;
+    opacity: 1;
+    transform: translateY(-10px);
+    transition: 0.5s;
+}
+.lockButton:hover > #imgLock2 {
+    display : none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.5s;
+}
+
+
+.lockButton:focus > #imgLock1 {
+    display : none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.5s;
+}
+.lockButton:focus > #imgLock2 {
+    display : initial;
+    opacity: 1;
+    transform: translateY(-10px);
+    transition: 0.5s;
+}
+
+
+#formContainer {
+    width : 100vw;
+    height  : 100vh;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#chifContainer, #dechifContainer {
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#switchRSA {
+    background-color: #fa8231;
+    color : #fff;
+
+    border : none;
+    padding  : 5px;
+    transition : 0.2s;
+    cursor : pointer;
+}
+#switchRSA:hover {
+    background-color: #dd742d;
+
+}
+
+.box {
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width : 320px;
+
+}
+
+.infoC {
+    margin-top : 50px;
+
+    display : flex;
+    flex-direction: row;
+
+    max-width : 1024px;
+    min-width  : 320px;
+}
+
+.boxArrow {
+    width : auto;
+    font-size : 60px;
+    margin : 20px;
+    color : #212121;
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.alone {
+    height : 90%;
+    border : 2px solid #78e08f;
+}
+
+.bigTA {
+    width : 280px;
+    height : 50px;
+    padding : 10px;
+    margin-bottom : 20px;
+
+    font-size : 15px;
+
+    color : #212121;
+    border : 2px solid #78e08f;
+}
+
+.smallTA {
+    width : 280px;
+    padding : 10px;
+    margin-bottom : 20px;
+
+    height : 25px;
+
+    border : 2px solid #78e08f;
+}
+
+.box2 {
+    margin-top : 20px;
+    width : 100%;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box2 button {
+    padding : 10px;
+    text-align: center;
+    background-color : #fa8231;
+    color : #fff;
+    transition : 0.2s;
+    border : none;
+    font-size : 15px;
+}
+.box2 button:hover {
+    background-color : #da732f; 
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+#formContainer:not(.noDisplay) {
+    transform: translateY(30px);
+    opacity: 0;
+    animation: fadeIn forwards 1s;
+}
+
+.inputC {
+    display : flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@keyframes zoomAnimation {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(30);
+    }
+}
+
+
+
+/* @keyframes */
+
+@keyframes fadeIn {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform : translateY(0);
+        opacity : 1;
+    }
+}
+
+

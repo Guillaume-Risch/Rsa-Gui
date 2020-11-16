@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./assets/css/Index.css">
+    <script src="./assets/js/Index.js" defer></script>
+    <script src="./renderer.js" defer></script>
+
+    <script src="https://kit.fontawesome.com/b18ab37082.js" crossorigin="anonymous"></script>
+
+    <title>Decryptor</title>
+
+</head>
+<body>
+    <div id="popupStart">
+        <button class="lockButton" id="lockButton">
+            <img src="./assets/images/lock.svg" alt="lockopen" id="imgLock1">
+            <img src="./assets/images/lock-close.svg" alt="lockopen" id="imgLock2">
+        </button>
+        <p class="popupText">
+            Cliquez sur le cadenas pour commencer
+        </p>
+    </div>
+    <div id="formContainer" class="noDisplay">        
+
+        <button id="switchRSA">
+            Changer de mode
+        </button>
+
+        <div id="chifContainer" class="">
+            <h1>Rsa - Chiffrement</h1>
+            <div class="infoC">
+                <div class="box">
+                    <label for="source">Message à chiffrer</label>
+                    <textarea class="alone" id="source" class="bigTA"></textarea>
+                    <div class="box2">
+                        <button  class="Chiffrement" id="Chiffrement" value="Chiffrement">Chiffrer</button>
+                    </div>
+                </div>
+                
+                <div class="boxArrow">
+                    <i class="fas fa-angle-double-right"></i>
+                </div>
+
+                <div class="box">
+                    <div class="inputC">
+                        <label for="receptor">Message chiffré</label>
+                        <textarea id="receptor" readonly class="bigTA"></textarea>
+                    </div>
+
+                    <div class="inputC">
+                        <label for="clecommuneC">Partie commune de la clé</label>
+                        <textarea id="clecommuneC" readonly class="smallTA"></textarea>
+                    </div>
+
+                    <div class="inputC">
+                        <label for="clepubliqueC">Partie publique de la clé</label>
+                        <textarea id="clepubliqueC" readonly  class="smallTA"></textarea>
+                    </div>
+
+                    <div class="inputC">
+                        <label for="clepriveeC">Partie privée de la clé</label>
+                        <textarea id="clepriveeC" readonly class="smallTA"></textarea>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div id="dechifContainer" class="noDisplay">
+            <h1>Rsa - Déchiffrement</h1>
+            
+            <div class="infoC">
+                <div class="box">
+                    <div class="inputC">
+                        <label for="sourceDecrypt">Message à déchiffrer</label>
+                        <textarea id="sourceDecrypt" required class="bigTA"></textarea>
+                    </div>
+                    <div class="inputC">
+                        <label for="clecommuneD">Partie commune de la clé</label>
+                        <textarea id="clecommuneD" required  class="smallTA"></textarea>
+                    </div>
+                    <div class="inputC">
+                        <label for="clepubliqueD">Partie publique de la clé</label>
+                        <textarea id="clepubliqueD" required  class="smallTA"></textarea>
+                    </div>
+
+                    <div class="box2">
+                        <button  class="Chiffrement" id="Dechiffrement" value="dechiffrement">Dechiffrer</button>
+                    </div>
+
+                </div>
+
+                <div class="boxArrow">
+                    <i class="fas fa-angle-double-right"></i>
+                </div>
+
+                <div class="box">
+                    <div class="inputC">
+                        <label for="receptorDecrypt">Message déchiffré</label>
+                        <textarea id="receptorDecrypt" readonly class="bigTA"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('Chiffrement').addEventListener('click', function(){
+            window.api.send("toCrypt", document.getElementById('source').value);
+            window.api.receive("fromCrypt", (data) => {
+                var clecommune = data[1].toString();
+                document.getElementById('clecommuneC').value = clecommune;
+
+                var clepublique = data[2].toString()
+                document.getElementById('clepubliqueC').value = clepublique
+
+                var cleprivee = data[3].toString()
+                document.getElementById('clepriveeC').value = cleprivee
+
+                var str = data[0];
+                var result = ''
+                for(let i = 0; i < str.length; ++i) {
+                    result += str[i]+' '
+                }
+                document.getElementById('receptor').value = result;
+            }); 
+        });
+
+        document.getElementById('Dechiffrement').addEventListener('click', function() {
+            window.api.send("toDecrypt", [document.getElementById('sourceDecrypt').value, document.getElementById('clecommuneD').value, document.getElementById('clepubliqueD').value]);
+            window.api.receive("fromDecrypt", (data) => {
+                document.getElementById('receptorDecrypt').value = data[0];
+            }); 
+
+
+        });
+    </script>
+</body>
+</html>
+
